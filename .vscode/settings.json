@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "xstring": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp",
+        "stack": "cpp",
+        "queue": "cpp",
+        "xtree": "cpp",
+        "ostream": "cpp"
+    },
+    "terminal.integrated.accessibleViewFocusOnCommandExecution": true,
+    "code-runner.preserveFocus": false,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "comment",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            }
+        ]
+    }
+}
