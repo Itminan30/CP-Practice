@@ -118,15 +118,19 @@ char maximumOccurranceString(string s);
 void replaceChar(string &s, string rep);
 // remove all the occurrence of a string
 void removeSubStr(string &s, string part);
+// check permutation in string -> s1's permutaion should be present in s2 as a substring
+bool checkEqualAlphabetArray(int arr1[], int arr2[]);
+bool checkPermutation(string s1, string s2);
 
 // main function
 int main()
 {
     string ch;
+    string cr;
     getline(cin, ch);
+    getline(cin, cr);
     // vector<char> c(ch.begin(), ch.end());
-    removeSubStr(ch, "lo");
-    cout << ch << endl;
+    cout << checkPermutation(ch, cr) << endl;
 }
 
 // Find Prime or not
@@ -1644,4 +1648,63 @@ void removeSubStr(string &s, string part)
         if (d != string::npos)
             s.replace(d, partSize, "");
     }
+}
+// check permutation in string -> s1's permutaion should be present in s2 as a substring
+bool checkEqualAlphabetArray(int arr1[], int arr2[])
+{
+    for (int i = 0; i < 26; i++)
+    {
+        if (arr1[i] != arr2[i])
+            return 0;
+    }
+    return 1;
+}
+bool checkPermutation(string s1, string s2)
+{
+    // character count array
+    int countS1[26] = {0};
+    int index = 0;
+    for (int i = 0; i < s1.size(); i++)
+    {
+        index = s1[i] - 'a';
+        countS1[index]++;
+    }
+    
+    // traverse s2 string in window of s1's length and compare with count array
+    int countS2[26] = {0};
+    int window = s1.size();
+
+    int i = 0;
+    // run for the first window
+    while (i < window && i < s2.size())
+    {
+        index = s2[i] - 'a';
+        countS2[index]++;
+        i++;
+    }
+    
+    if (checkEqualAlphabetArray(countS1, countS2))
+        return true;
+
+    // run for the later windows
+    while (i < s2.size())
+    {
+        char newChar = s2[i];
+        index = newChar - 'a';
+        countS2[index]++;
+
+        // remove the previous window value
+        char oldChar = s2[i-window];
+        index = oldChar - 'a';
+        countS2[index]--;
+
+        // increment i
+        i++;
+
+        // compare the both count arrays
+        if (checkEqualAlphabetArray(countS1, countS2))
+            return true;
+    }
+
+    return false;
 }
