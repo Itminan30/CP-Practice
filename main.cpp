@@ -116,6 +116,8 @@ void reverseWordsInString(vector<char> &s);
 char maximumOccurranceString(string s);
 // replace character with a word or bunch of characters
 void replaceChar(string &s, string rep);
+// remove all the occurrence of a string
+void removeSubStr(string &s, string part);
 
 // main function
 int main()
@@ -123,7 +125,7 @@ int main()
     string ch;
     getline(cin, ch);
     // vector<char> c(ch.begin(), ch.end());
-    replaceChar(ch, "_@_");
+    removeSubStr(ch, "lo");
     cout << ch << endl;
 }
 
@@ -1616,17 +1618,30 @@ char maximumOccurranceString(string s)
             alpha = i;
         }
     }
-    
+
     return 'a' + alpha;
 }
 // replace character with a word or bunch of characters
 void replaceChar(string &s, string rep)
 {
-    for(int i = 0; i < s.size(); i++)
+    for (int i = 0; i < s.size(); i++)
     {
-        if(s[i] == ' ')
+        if (s[i] == ' ')
         {
             s.replace(i, 1, rep);
         }
+    }
+}
+// remove all the occurrence of a string
+void removeSubStr(string &s, string part)
+{
+    // read doc of string::find from GeeksForGeeks
+    int partSize = part.size();
+    size_t found = 0;
+    for (int i = 0; i < s.size(); i++)
+    {
+        int d = s.find(part, found++);
+        if (d != string::npos)
+            s.replace(d, partSize, "");
     }
 }
