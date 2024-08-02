@@ -112,14 +112,16 @@ string stringConverter(string ch);
 bool palindromeChecker(string str);
 //  Reverse word in string
 void reverseWordsInString(vector<char> &s);
+// maximum occurrance in string
+char maximumOccurranceString(string s);
 
 // main function
 int main()
 {
     string ch;
     getline(cin, ch);
-    vector<char> c(ch.begin(), ch.end());
-    reverseWordsInString(c);
+    // vector<char> c(ch.begin(), ch.end());
+    cout << maximumOccurranceString(ch) << endl;
 }
 
 // Find Prime or not
@@ -1576,4 +1578,41 @@ void reverseWordsInString(vector<char> &s)
     }
 
     cout << endl;
+}
+// maximum occurrance in string
+char maximumOccurranceString(string s)
+{
+    int alphabet[26] = {0};
+    char ch;
+    int a;
+
+    // store all occurrance
+    for (int i = 0; i < s.size(); i++)
+    {
+        ch = s.at(i);
+        a = 0;
+        if (ch >= 'a' && ch <= 'z')
+        {
+            a = (ch - 'a');
+            alphabet[a]++;
+        }
+        else
+        {
+            a = (ch - 'A');
+            alphabet[a]++;
+        }
+    }
+    // get max occurrence
+    int maxx = alphabet[0];
+    int alpha = 0;
+    for (int i = 0; i < 26; i++)
+    {
+        if (alphabet[i] > maxx)
+        {
+            maxx = alphabet[i];
+            alpha = i;
+        }
+    }
+    
+    return 'a' + alpha;
 }
