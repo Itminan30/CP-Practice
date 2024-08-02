@@ -121,16 +121,19 @@ void removeSubStr(string &s, string part);
 // check permutation in string -> s1's permutaion should be present in s2 as a substring
 bool checkEqualAlphabetArray(int arr1[], int arr2[]);
 bool checkPermutation(string s1, string s2);
+// compress a string -> {a,a,a,b,c,c,c,c} => {a,3,b,c,4}
+int compressString(vector<char> &ch);
 
 // main function
 int main()
 {
-    string ch;
-    string cr;
-    getline(cin, ch);
-    getline(cin, cr);
+    vector<char> ch = {'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'c', 'd', 'd'};
     // vector<char> c(ch.begin(), ch.end());
-    cout << checkPermutation(ch, cr) << endl;
+    compressString(ch);
+    for(char i : ch)
+    {
+        cout << i << endl;
+    }
 }
 
 // Find Prime or not
@@ -1707,4 +1710,39 @@ bool checkPermutation(string s1, string s2)
     }
 
     return false;
+}
+// compress a string -> {a,a,a,b,c,c,c,c} => {a,3,b,c,4}
+int compressString(vector<char> &ch)
+{
+    int i = 0;
+    int ansIndex = 0;
+    int size = ch.size();
+
+    while(i < size)
+    {
+        int j = i + 1;
+        while(j < size && ch[i] == ch[j])
+        {
+            j++;
+        }
+        // store the character in array and then store the count
+        ch[ansIndex++] = ch[i];
+        int count = j - i;
+        // if character count is greater than 1 then input the count
+        if(count > 1)
+        {
+            string countString = to_string(count);
+            // this loop is needed because if the count is 2 digit then it can be properly stored
+            for(char c : countString)
+            {
+                ch[ansIndex++] = c;
+            }
+        }
+        // go to the next character
+        i = j;
+    }
+    // extra - > erase the further string after compression
+    ch.erase(ch.begin() + ansIndex, ch.end());
+    // ansIndex is the final size of the char array ofter compression
+    return ansIndex;
 }
