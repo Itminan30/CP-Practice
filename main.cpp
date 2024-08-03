@@ -123,17 +123,15 @@ bool checkEqualAlphabetArray(int arr1[], int arr2[]);
 bool checkPermutation(string s1, string s2);
 // compress a string -> {a,a,a,b,c,c,c,c} => {a,3,b,c,4}
 int compressString(vector<char> &ch);
+// remove adjacent duplicate characters from string {abbaca} -> {ca}
+string removeAdjDupChar(string s);
 
 // main function
 int main()
 {
-    vector<char> ch = {'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'c', 'd', 'd'};
-    // vector<char> c(ch.begin(), ch.end());
-    compressString(ch);
-    for(char i : ch)
-    {
-        cout << i << endl;
-    }
+    string s = "aaaaaaaaa";
+    string ans = removeAdjDupChar(s);
+    cout << ans << endl;
 }
 
 // Find Prime or not
@@ -1672,7 +1670,7 @@ bool checkPermutation(string s1, string s2)
         index = s1[i] - 'a';
         countS1[index]++;
     }
-    
+
     // traverse s2 string in window of s1's length and compare with count array
     int countS2[26] = {0};
     int window = s1.size();
@@ -1685,7 +1683,7 @@ bool checkPermutation(string s1, string s2)
         countS2[index]++;
         i++;
     }
-    
+
     if (checkEqualAlphabetArray(countS1, countS2))
         return true;
 
@@ -1697,7 +1695,7 @@ bool checkPermutation(string s1, string s2)
         countS2[index]++;
 
         // remove the previous window value
-        char oldChar = s2[i-window];
+        char oldChar = s2[i - window];
         index = oldChar - 'a';
         countS2[index]--;
 
@@ -1718,10 +1716,10 @@ int compressString(vector<char> &ch)
     int ansIndex = 0;
     int size = ch.size();
 
-    while(i < size)
+    while (i < size)
     {
         int j = i + 1;
-        while(j < size && ch[i] == ch[j])
+        while (j < size && ch[i] == ch[j])
         {
             j++;
         }
@@ -1729,11 +1727,11 @@ int compressString(vector<char> &ch)
         ch[ansIndex++] = ch[i];
         int count = j - i;
         // if character count is greater than 1 then input the count
-        if(count > 1)
+        if (count > 1)
         {
             string countString = to_string(count);
             // this loop is needed because if the count is 2 digit then it can be properly stored
-            for(char c : countString)
+            for (char c : countString)
             {
                 ch[ansIndex++] = c;
             }
@@ -1745,4 +1743,52 @@ int compressString(vector<char> &ch)
     ch.erase(ch.begin() + ansIndex, ch.end());
     // ansIndex is the final size of the char array ofter compression
     return ansIndex;
+}
+// remove adjacent duplicate characters from string {abbaca} -> {ca}
+string removeAdjDupChar(string s)
+{
+    // Use stack data structure
+    stack<char> charStk;
+
+    // Loop through the full string
+    for (int i = 0; i < s.length(); i++)
+    {
+        // Check if the stack is empty or not. if it is empty then push the character to the stack with out checking the top (obviously).
+        if (!charStk.empty())
+        {
+            // If the character is already at the top of the stack then don't push the character to the stack. also pop the top character of the stack.
+            if (s[i] != charStk.top())
+            {
+                charStk.push(s[i]);
+            }
+            else
+            {
+                charStk.pop();
+            }
+        }
+        else
+        {
+            charStk.push(s[i]);
+        }
+    }
+
+    // Make a character array to store the value from stack
+    char temp[1000000];
+    int ansCount = charStk.size();
+
+    // Copy the elements of stack to charcter array
+    for (int i = ansCount - 1; i >= 0; i--)
+    {
+        temp[i] = charStk.top();
+        charStk.pop();
+    }
+
+    // Copy the character array to a string
+    string ansString(temp);
+
+    // Done for the compiler of leetcode -> otherwise unnecessary
+    ansString.resize(ansCount);
+
+    // Return the ansewer string
+    return ansString;
 }
