@@ -137,14 +137,14 @@ void wavePrint2DInt(vector<vector<int>> arr, int row, int col);
 void printSpiral(vector<vector<int>> arr);
 // rotate matrix by 90 degrees -> inplace = transpose and then reverse
 void rotateMatrix(vector<vector<int>> &arr);
+// binary search in 2D integer vector
+bool binarySearch2DVectorInt(vector<vector<int>> &arr, int target);
 
 // main function
 int main()
 {
     vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-    print2DVectorIntArray(arr);
-    rotateMatrix(arr);
-    print2DVectorIntArray(arr);
+    cout << binarySearch2DVectorInt(arr, 12) << endl;
 }
 
 // Find Prime or not
@@ -1934,4 +1934,32 @@ void rotateMatrix(vector<vector<int>> &arr)
     {
         reverseVectorIntArray(arr[i]);
     }
+}
+// binary search in 2D integer vector
+bool binarySearch2DVectorInt(vector<vector<int>> &arr, int target)
+{
+    int row = arr.size();
+    int col = arr[0].size();
+
+    int start = 0;
+    int end = (row * col) - 1;
+    int mid;
+
+    while (start <= end)
+    {
+        mid = start + ((end - start) / 2);
+        if (arr[mid / col][mid % col] == target)
+        {
+            return true;
+        }
+        else if (arr[mid / col][mid % col] < target)
+        {
+            start = mid + 1;
+        }
+        else
+        {
+            end = mid - 1;
+        }
+    }
+    return false;
 }
