@@ -139,12 +139,14 @@ void printSpiral(vector<vector<int>> arr);
 void rotateMatrix(vector<vector<int>> &arr);
 // binary search in 2D integer vector
 bool binarySearch2DVectorInt(vector<vector<int>> &arr, int target);
+// binary search in 3D integer vector -> both row and column are sorted in ascending order
+bool binarySearch2DVectorInt2(vector<vector<int>> &arr, int target);
 
 // main function
 int main()
 {
     vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-    cout << binarySearch2DVectorInt(arr, 12) << endl;
+    cout << binarySearch2DVectorInt2(arr, 12) << endl;
 }
 
 // Find Prime or not
@@ -1959,6 +1961,35 @@ bool binarySearch2DVectorInt(vector<vector<int>> &arr, int target)
         else
         {
             end = mid - 1;
+        }
+    }
+    return false;
+}
+// binary search in 3D integer vector -> both row and column are sorted in ascending order
+bool binarySearch2DVectorInt2(vector<vector<int>> &arr, int target)
+{
+    int row = arr.size();
+    int col = arr[0].size();
+
+    int rowIndex = 0;
+    int colIndex = col - 1;
+    int element;
+
+    while (rowIndex < row && colIndex >= 0)
+    {
+        element = arr[rowIndex][colIndex];
+
+        if (element == target)
+        {
+            return true;
+        }
+        else if (element < target)
+        {
+            rowIndex++;
+        }
+        else
+        {
+            colIndex--;
         }
     }
     return false;
