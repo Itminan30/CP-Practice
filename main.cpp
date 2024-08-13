@@ -44,6 +44,8 @@ void printIntArr(int arr[], int size);
 void printVectIntArr(vector<int> vect);
 // reverse an Integer array
 void reverseIntArr(int arr[], int size);
+// reverse integer vector array
+void reverseVectorIntArray(vector<int> &arr);
 // array swap alternate
 void swapAlternate(int arr[], int size);
 // Find one unique element in array (2m + 1)
@@ -125,18 +127,24 @@ bool checkPermutation(string s1, string s2);
 int compressString(vector<char> &ch);
 // remove adjacent duplicate characters from string {abbaca} -> {ca}
 string removeAdjDupChar(string s);
+// print 2D vector integer array
+void print2DVectorIntArray(vector<vector<int>> arr);
 // Row wise sum of 2D array
 void rowWiseSum(int arr[][3], int row, int col);
 // wave pattern print in 2D integer vector array (not actual waves)
 void wavePrint2DInt(vector<vector<int>> arr, int row, int col);
 // print matrix in spiral form
 void printSpiral(vector<vector<int>> arr);
+// rotate matrix by 90 degrees -> inplace = transpose and then reverse
+void rotateMatrix(vector<vector<int>> &arr);
 
 // main function
 int main()
 {
     vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-    printSpiral(arr);
+    print2DVectorIntArray(arr);
+    rotateMatrix(arr);
+    print2DVectorIntArray(arr);
 }
 
 // Find Prime or not
@@ -405,6 +413,15 @@ void reverseIntArr(int arr[], int size)
         // arr[i] = arr[i] - arr[n - i];
         // arr[n - i] = arr[i] + arr[n - i];
         // arr[i] = arr[n - i] - arr[i];
+    }
+}
+// reverse integer vector array
+void reverseVectorIntArray(vector<int> &arr)
+{
+    int n = arr.size() - 1;
+    for (int i = 0; i < ((n + 1) / 2); i++)
+    {
+        swap(arr[i], arr[n - i]);
     }
 }
 // array swap alternate
@@ -1797,6 +1814,21 @@ string removeAdjDupChar(string s)
     // Return the ansewer string
     return ansString;
 }
+// print 2D vector integer array
+void print2DVectorIntArray(vector<vector<int>> arr)
+{
+    int row = arr.size();
+    int col = arr[0].size();
+
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 // Row wise sum of 2D array
 void rowWiseSum(int arr[][3], int row, int col)
 {
@@ -1880,5 +1912,26 @@ void printSpiral(vector<vector<int>> arr)
             count++;
         }
         startingCol++;
+    }
+}
+// rotate matrix by 90 degrees -> inplace = transpose and then reverse
+void rotateMatrix(vector<vector<int>> &arr)
+{
+    int row = arr.size();
+    int col = arr[0].size();
+
+    // transpose
+    for (int i = 1; i < row; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            swap(arr[i][j], arr[j][i]);
+        }
+    }
+
+    // reverse
+    for (int i = 0; i < row; i++)
+    {
+        reverseVectorIntArray(arr[i]);
     }
 }

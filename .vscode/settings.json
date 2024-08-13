@@ -6,7 +6,10 @@
         "stack": "cpp",
         "queue": "cpp",
         "xtree": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "xutility": "cpp"
     },
     "terminal.integrated.accessibleViewFocusOnCommandExecution": true,
     "code-runner.preserveFocus": false,
