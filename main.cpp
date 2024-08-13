@@ -129,12 +129,14 @@ string removeAdjDupChar(string s);
 void rowWiseSum(int arr[][3], int row, int col);
 // wave pattern print in 2D integer vector array (not actual waves)
 void wavePrint2DInt(vector<vector<int>> arr, int row, int col);
+// print matrix in spiral form
+void printSpiral(vector<vector<int>> arr);
 
 // main function
 int main()
 {
-    vector<vector<int>> arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    wavePrint2DInt(arr, 3, 3);
+    vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+    printSpiral(arr);
 }
 
 // Find Prime or not
@@ -1828,5 +1830,55 @@ void wavePrint2DInt(vector<vector<int>> arr, int row, int col)
                 cout << arr[j][i] << " ";
             }
         }
+    }
+}
+// print matrix in spiral form
+void printSpiral(vector<vector<int>> arr)
+{
+    int row = arr.size();
+    int col = arr[0].size();
+
+    int count = 0;
+    int total = row * col;
+
+    // index initialization
+    int startingRow = 0;
+    int startingCol = 0;
+    int endingRow = row - 1;
+    int endingCol = col - 1;
+
+    while (count < total)
+    {
+        // print starting row -> starting col to ending col
+        for (int index = startingCol; count < total && index <= endingCol; index++)
+        {
+            cout << arr[startingRow][index] << " ";
+            count++;
+        }
+        startingRow++;
+
+        // print ending column -> starting row to ending row
+        for (int index = startingRow; count < total && index <= endingRow; index++)
+        {
+            cout << arr[index][endingCol] << " ";
+            count++;
+        }
+        endingCol--;
+
+        // print ending row -> ending col to starting col
+        for (int index = endingCol; count < total && index >= startingCol; index--)
+        {
+            cout << arr[endingRow][index] << " ";
+            count++;
+        }
+        endingRow--;
+
+        // print starting column -> ending row to starting row
+        for (int index = endingRow; count < total && index >= startingRow; index--)
+        {
+            cout << arr[index][startingCol] << " ";
+            count++;
+        }
+        startingCol++;
     }
 }
