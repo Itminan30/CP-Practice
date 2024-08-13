@@ -127,12 +127,14 @@ int compressString(vector<char> &ch);
 string removeAdjDupChar(string s);
 // Row wise sum of 2D array
 void rowWiseSum(int arr[][3], int row, int col);
+// wave pattern print in 2D integer vector array (not actual waves)
+void wavePrint2DInt(vector<vector<int>> arr, int row, int col);
 
 // main function
 int main()
 {
-    int arr[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    rowWiseSum(arr, 3, 3);
+    vector<vector<int>> arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    wavePrint2DInt(arr, 3, 3);
 }
 
 // Find Prime or not
@@ -1797,13 +1799,34 @@ string removeAdjDupChar(string s)
 void rowWiseSum(int arr[][3], int row, int col)
 {
     int sum = 0;
-    for(int i = 0; i < row; i++)
+    for (int i = 0; i < row; i++)
     {
         sum = 0;
-        for(int j = 0; j < col; j++)
+        for (int j = 0; j < col; j++)
         {
             sum += arr[i][j];
         }
         cout << "Sum of " << i << "th row: " << sum << endl;
+    }
+}
+// wave pattern print in 2D integer vector array (not actual waves)
+void wavePrint2DInt(vector<vector<int>> arr, int row, int col)
+{
+    for (int i = 0; i < col; i++)
+    {
+        if (i % 2 == 0)
+        {
+            for (int j = 0; j < row; j++)
+            {
+                cout << arr[j][i] << " ";
+            }
+        }
+        else
+        {
+            for (int j = row - 1; j >= 0; j--)
+            {
+                cout << arr[j][i] << " ";
+            }
+        }
     }
 }
