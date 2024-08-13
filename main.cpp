@@ -125,13 +125,14 @@ bool checkPermutation(string s1, string s2);
 int compressString(vector<char> &ch);
 // remove adjacent duplicate characters from string {abbaca} -> {ca}
 string removeAdjDupChar(string s);
+// Row wise sum of 2D array
+void rowWiseSum(int arr[][3], int row, int col);
 
 // main function
 int main()
 {
-    string s = "aaaaaaaaa";
-    string ans = removeAdjDupChar(s);
-    cout << ans << endl;
+    int arr[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    rowWiseSum(arr, 3, 3);
 }
 
 // Find Prime or not
@@ -1791,4 +1792,18 @@ string removeAdjDupChar(string s)
 
     // Return the ansewer string
     return ansString;
+}
+// Row wise sum of 2D array
+void rowWiseSum(int arr[][3], int row, int col)
+{
+    int sum = 0;
+    for(int i = 0; i < row; i++)
+    {
+        sum = 0;
+        for(int j = 0; j < col; j++)
+        {
+            sum += arr[i][j];
+        }
+        cout << "Sum of " << i << "th row: " << sum << endl;
+    }
 }
