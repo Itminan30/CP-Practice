@@ -141,12 +141,15 @@ void rotateMatrix(vector<vector<int>> &arr);
 bool binarySearch2DVectorInt(vector<vector<int>> &arr, int target);
 // binary search in 3D integer vector -> both row and column are sorted in ascending order
 bool binarySearch2DVectorInt2(vector<vector<int>> &arr, int target);
+// number of prime numbers before n -> (sieve of eratosthenes)
+int numberOfPrimes(int n);
 
 // main function
 int main()
 {
-    vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-    cout << binarySearch2DVectorInt2(arr, 12) << endl;
+    // vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+    // cout << binarySearch2DVectorInt2(arr, 12) << endl;
+    cout << numberOfPrimes(99) << endl;
 }
 
 // Find Prime or not
@@ -1994,3 +1997,36 @@ bool binarySearch2DVectorInt2(vector<vector<int>> &arr, int target)
     }
     return false;
 }
+// number of prime numbers before n -> (sieve of eratosthenes)
+int numberOfPrimes(int n)
+{
+    int count = 0;
+
+    // extra: store the prime numbers in a vector
+    // vector<int> primeNumbers;
+    
+    // implement sieve of eratosthenes
+    vector<bool> primeArray(n+1, true);
+    primeArray[0] = primeArray[1] = false;
+
+    // loop through all the numbers from 2 to n
+    for(int i = 2; i < n; i++)
+    {
+        if(primeArray[i])
+        {
+            count++;
+            // primeNumbers.push_back(i);
+            // for each prime number turn all the numbers that is the multiple of the current prime number to non prime
+            for(int j = i * 2; j < n; j = j + i)
+            {
+                primeArray[j] = false;
+            }
+        }
+    }
+
+    // extra: see all the prime numbers untill n
+    // printVectIntArr(primeNumbers);
+
+    return count;
+}
+// 
