@@ -149,14 +149,15 @@ vector<int> sieveOfEratosthenes(long long int r);
 vector<int> segmentedSieve(long long int l, long long int r);
 // lowest and higthest prime factor of numbers
 pair<int, int> lowAndHighPrimeFactors(int number);
+// prime factorization of a number
+vector<int> primeFactor(int number);
 
 // main function
 int main()
 {
     int n;
     cin >> n;
-    pair<int, int> factor = lowAndHighPrimeFactors(n);
-    cout << factor.first << " " << factor.second << endl;
+    primeFactor(n);
 }
 
 // Find Prime or not
@@ -2129,3 +2130,59 @@ pair<int, int> lowAndHighPrimeFactors(int number)
 
     return factors;
 }
+// prime factorization of a number
+vector<int> primeFactor(int number)
+{
+    // vector for storing the prime factors of the number
+    vector<int> factors = {1};
+    // vector for storing lowestFactor
+    vector<int> highestFactor(number + 1, 0);
+    // vector for storing sieve
+    vector<bool> sieve(number + 1, true);
+    sieve[0] = sieve[1] = false;
+
+    // make the sieve vector and highestFactor vector
+    for(int i = 2; i <= number; i++)
+    {
+        if(sieve[i])
+        {
+            highestFactor[i] = i;
+            for(int j = i * 2; j <= number; j += i)
+            {
+                sieve[j] = false;
+                highestFactor[j] = i;
+            }
+        }
+    }
+
+    // finding the prime factors of number: own way
+    while(number > 1)
+    {
+        factors.push_back(highestFactor[number]);
+        number = number/highestFactor[number];
+    }
+
+    // finding the prime factors of number: yt -> luv
+    // while(number > 1)
+    // {
+    //     int prime_factor = highestFactor[number];
+    //     while(number % prime_factor == 0)
+    //     {
+    //         number /= prime_factor;
+    //         factors.push_back(prime_factor);
+    //     }
+    // }
+
+    // sort the factors in increasing order
+    sort(factors.begin(), factors.end());
+
+    // extra: print the factors array for checking
+    for(auto num : factors)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return factors;
+}
+// 
