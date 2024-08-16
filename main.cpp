@@ -2135,6 +2135,9 @@ vector<int> primeFactor(int number)
 {
     // vector for storing the prime factors of the number
     vector<int> factors = {1};
+    // map to store the the factors with their power
+    map<int, int> mapFactor;
+
     // vector for storing lowestFactor
     vector<int> highestFactor(number + 1, 0);
     // vector for storing sieve
@@ -2142,12 +2145,12 @@ vector<int> primeFactor(int number)
     sieve[0] = sieve[1] = false;
 
     // make the sieve vector and highestFactor vector
-    for(int i = 2; i <= number; i++)
+    for (int i = 2; i <= number; i++)
     {
-        if(sieve[i])
+        if (sieve[i])
         {
             highestFactor[i] = i;
-            for(int j = i * 2; j <= number; j += i)
+            for (int j = i * 2; j <= number; j += i)
             {
                 sieve[j] = false;
                 highestFactor[j] = i;
@@ -2156,10 +2159,11 @@ vector<int> primeFactor(int number)
     }
 
     // finding the prime factors of number: own way
-    while(number > 1)
+    while (number > 1)
     {
         factors.push_back(highestFactor[number]);
-        number = number/highestFactor[number];
+        mapFactor[highestFactor[number]]++;
+        number = number / highestFactor[number];
     }
 
     // finding the prime factors of number: yt -> luv
@@ -2177,12 +2181,19 @@ vector<int> primeFactor(int number)
     sort(factors.begin(), factors.end());
 
     // extra: print the factors array for checking
-    for(auto num : factors)
+    for (auto num : factors)
     {
         cout << num << " ";
     }
     cout << endl;
 
+    // extra: print the factors in map
+    for (auto num : mapFactor)
+    {
+        cout << num.first << " " << num.second << endl;
+    }
+    cout << endl;
+
     return factors;
 }
-// 
+//
