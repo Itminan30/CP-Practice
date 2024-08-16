@@ -151,13 +151,15 @@ vector<int> segmentedSieve(long long int l, long long int r);
 pair<int, int> lowAndHighPrimeFactors(int number);
 // prime factorization of a number
 vector<int> primeFactor(int number);
+// GCD in iterative approach
+int iterativeGCD(int a, int b);
 
 // main function
 int main()
 {
-    int n;
-    cin >> n;
-    primeFactor(n);
+    int n, m;
+    cin >> n >> m;
+    cout << gcd(n, m);
 }
 
 // Find Prime or not
@@ -2196,4 +2198,24 @@ vector<int> primeFactor(int number)
 
     return factors;
 }
-//
+// GCD in iterative approach
+int iterativeGCD(int a, int b)
+{
+    if (a == 0)
+        return b;
+    if (b == 0)
+        return a;
+
+    while (a != b)
+    {
+        if (a > b)
+        {
+            a = a - b;
+        }
+        else
+        {
+            b = b - a;
+        }
+    }
+    return a;
+}
