@@ -147,11 +147,16 @@ int numberOfPrimes(int n);
 vector<int> sieveOfEratosthenes(long long int r);
 // implement segmented sieve
 vector<int> segmentedSieve(long long int l, long long int r);
+// lowest and higthest prime factor of numbers
+pair<int, int> lowAndHighPrimeFactors(int number);
 
 // main function
 int main()
 {
-    segmentedSieve(0, 5);
+    int n;
+    cin >> n;
+    pair<int, int> factor = lowAndHighPrimeFactors(n);
+    cout << factor.first << " " << factor.second << endl;
 }
 
 // Find Prime or not
@@ -2094,4 +2099,33 @@ vector<int> segmentedSieve(long long int l, long long int r)
         }
     }
     return primes;
+}
+// lowest and higthest prime factor of numbers
+pair<int, int> lowAndHighPrimeFactors(int number)
+{
+    vector<int> highestPrimeFactor(number + 1, 0), lowestPrimeFactor(number + 1, 0);
+
+    vector<int> sieve(number + 1, true);
+    sieve[0] = sieve[1] = false;
+    for (int i = 2; i <= number; i++)
+    {
+        if (sieve[i])
+        {
+            highestPrimeFactor[i] = i;
+            lowestPrimeFactor[i] = 1;
+            for (int j = i * 2; j <= number; j += i)
+            {
+                sieve[j] = false;
+                highestPrimeFactor[j] = i;
+                if (lowestPrimeFactor[j] == 0)
+                {
+                    lowestPrimeFactor[j] = i;
+                }
+            }
+        }
+    }
+
+    pair<int, int> factors = make_pair(lowestPrimeFactor[number], highestPrimeFactor[number]);
+
+    return factors;
 }
