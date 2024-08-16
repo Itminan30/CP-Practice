@@ -143,13 +143,15 @@ bool binarySearch2DVectorInt(vector<vector<int>> &arr, int target);
 bool binarySearch2DVectorInt2(vector<vector<int>> &arr, int target);
 // number of prime numbers before n -> (sieve of eratosthenes)
 int numberOfPrimes(int n);
+// sieve of eratosthenes
+vector<int> sieveOfEratosthenes(long long int r);
+// implement segmented sieve
+vector<int> segmentedSieve(long long int l, long long int r);
 
 // main function
 int main()
 {
-    // vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-    // cout << binarySearch2DVectorInt2(arr, 12) << endl;
-    cout << numberOfPrimes(99) << endl;
+    segmentedSieve(0, 5);
 }
 
 // Find Prime or not
@@ -2004,20 +2006,20 @@ int numberOfPrimes(int n)
 
     // extra: store the prime numbers in a vector
     // vector<int> primeNumbers;
-    
+
     // implement sieve of eratosthenes
-    vector<bool> primeArray(n+1, true);
+    vector<bool> primeArray(n + 1, true);
     primeArray[0] = primeArray[1] = false;
 
     // loop through all the numbers from 2 to n
-    for(int i = 2; i < n; i++)
+    for (int i = 2; i < n; i++)
     {
-        if(primeArray[i])
+        if (primeArray[i])
         {
             count++;
             // primeNumbers.push_back(i);
             // for each prime number turn all the numbers that is the multiple of the current prime number to non prime
-            for(int j = i * 2; j < n; j = j + i)
+            for (int j = i * 2; j < n; j = j + i)
             {
                 primeArray[j] = false;
             }
@@ -2029,4 +2031,67 @@ int numberOfPrimes(int n)
 
     return count;
 }
-// 
+// sieve of eratosthenes
+vector<int> sieveOfEratosthenes(long long int r)
+{
+    // store the primes
+    vector<int> primes;
+    // vector for the numbers
+    vector<bool> numbers(r + 1, true);
+    // assign false to number 0 and 1
+    numbers[0] = numbers[1] = false;
+    // main logic of sieve of eratosthenes
+    for (long long int i = 2; i <= r; i++)
+    {
+        if (numbers[i])
+        {
+            primes.push_back(i);
+            for (long long int j = i * 2; j <= r; j += i)
+            {
+                numbers[j] = false;
+            }
+        }
+    }
+    return primes;
+}
+// implement segmented sieve
+vector<int> segmentedSieve(long long int l, long long int r)
+{
+    vector<int> primes;
+    // step 1: generate primes until the square root of the upper limit
+    vector<int> primesArray = sieveOfEratosthenes(sqrt(r));
+    // step 2: create a dummy array of size (r - l + 1) and initialize it with true
+    vector<bool> dummyArray((r - l + 1), true);
+    // edge case where the lower limit is 0 or 1
+    if (l == 1)
+        dummyArray[0] = false;
+    if (l == 0)
+        dummyArray[0] = dummyArray[1] = false;
+    // step 3: mark all multiple of the primes array in the dummy array as false
+    for (auto pr : primesArray)
+    {
+        // get the first value within the range between l and r for the prime number
+        long long int firstMultiple = ((l / pr) * pr) < l ? (((l / pr) * pr) + pr) : ((l / pr) * pr);
+        long long square = pr * pr;
+        for (long long int j = max(firstMultiple, square); j <= r; j += pr)
+        {
+            dummyArray[j - l] = false;
+        }
+        // important checking to see if the first multiple becomes equal to the ith prime number. If it becomes equal then the loop above will mistakenly assign the prime number as not prime. Thats why the checking and correction below is done -> the function will work okay without this checking if j = max(firstMultiple, square) is declared. Otherwise the checking is required
+        // if(firstMultiple == pr)
+        // {
+        //     dummyArray[firstMultiple - l] = true;
+        // }
+    }
+    // step 4: get all the primes from the dummy array
+    for (long long int i = l; i <= r; i++)
+    {
+        if (dummyArray[i - l])
+        {
+            primes.push_back(i);
+            // extra
+            cout << i << " ";
+        }
+    }
+    return primes;
+}
