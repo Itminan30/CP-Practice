@@ -2219,3 +2219,18 @@ int iterativeGCD(int a, int b)
     }
     return a;
 }
+// modular exponentiation -> (x^n)%m
+int modularExponentiation(int x, int n, int m)
+{
+    int res = 1;
+    while (n > 0)
+    {
+        if (n & 1) // n is odd
+        {
+            res = (1LL * (res) * (x % m)) % m;
+        }
+        x = (1LL * (x % m) * (x % m)) % m;
+        n = n >> 1;
+    }
+    return res;
+}
