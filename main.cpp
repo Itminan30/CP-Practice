@@ -10,6 +10,35 @@
 #include <regex>
 using namespace std;
 
+// macro definations
+
+// // Object-Like Macros
+#define PI 3.14
+
+// // Function-Like Macros
+#define PRINT(x) cout << "Value is: " << (x) << endl
+
+// // Muliline Macros
+#define PRINT_RECTANGLE(width, height)  \
+    for (int i = 0; i < height; i++)    \
+    {                                   \
+        for (int j = 0; j < width; j++) \
+        {                               \
+            cout << "*";                \
+        }                               \
+        cout << endl;                   \
+    }
+
+// // Chain Macros
+#define SALARY 10000
+#define PAYMENT cout << "The salary of employee is: " << SALARY << endl
+
+// // Predefined Macros
+// __FILE__
+// __DATE__
+// __TIME__
+// __LINE__
+
 // Find prime or not
 bool primeFinder(int n);
 // Identify character
@@ -154,45 +183,19 @@ vector<int> primeFactor(int number);
 // GCD in iterative approach
 int iterativeGCD(int a, int b);
 
-void chArr(int **arr, int n, int m)
-{
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            arr[i][j] = i * j;
-        }
-    }
-}
-
 // main function
 int main()
 {
-    // int n, m;
-    // cin >> n >> m;
-    // cout << gcd(n, m);
-    int n, m;
-    cin >> n >> m;
-    int **arr = new int *[n];
-    for (int i = 0; i < n; i++)
-    {
-        *(arr + i) = new int[m];
-    }
-    chArr(arr, n, m);
-    cout << "Printing array:" << endl;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            cout << arr[i][j] << " ";
-        }
-        cout << endl;
-    }
-    for(int i = 0; i < n; i++)
-    {
-        delete []arr[i];
-    }
-    delete []arr;
+    // Example of Object-Like Macros
+    cout << PI << endl;
+    // Example of Functon-Like Macros
+    PRINT(69);
+    // Example of Multiline Macros
+    PRINT_RECTANGLE(10, 10);
+    // Example of Chain Macros
+    PAYMENT;
+    // Example of predefined Macros
+    cout << "File: " << __FILE__ << " " << "Date: " << __DATE__ << " " << "Time: " << __TIME__ << " " << "Line: " << __LINE__ << endl;
 }
 
 // Find Prime or not
