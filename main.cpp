@@ -81,6 +81,8 @@ void swapAlternate(int arr[], int size);
 int findOneUnique(int arr[], int size);
 // find duplicate in array of n numbers containing number from 1 to n-1. One number will repeat.
 int findDuplicateEasy(int arr[], int size);
+// unique number of occurrences
+bool uniqueNumberOfOccur(vector<int> &arr);
 // find intersecting of sorted array -> brute force
 void findIntersectSorted(int arr1[], int arr2[], int size1, int size2);
 // pair sum
@@ -188,11 +190,8 @@ inline int getMax(int a, int b);
 // main function
 int main()
 {
-    int a = 6, b = 7;
-    cout << getMax(a, b) << endl;
-    a++;
-    b--;
-    cout << getMax(a, b) << endl;
+    vector<int> arr = {4, 2, 2, 3, 4, 4};
+    cout << uniqueNumberOfOccur(arr) << endl;
 }
 
 // Find Prime or not
@@ -501,6 +500,24 @@ int findDuplicateEasy(int arr[], int size)
     }
     ans = ans - sum;
     return ans;
+}
+// unique number of occurrences
+bool uniqueNumberOfOccur(vector<int> &arr)
+{
+    unordered_map<int, int> mp;
+    set<int> st;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        mp[arr[i]]++;
+    }
+    
+    for (auto val : mp)
+    {
+        st.insert(val.second);
+    }
+    if(st.size() != mp.size())
+        return false;
+    return true;
 }
 // find intersecting of sorted array -> brute force, two pointer approach
 void findIntersectSorted(int arr1[], int arr2[], int size1, int size2)
