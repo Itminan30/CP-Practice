@@ -182,20 +182,17 @@ pair<int, int> lowAndHighPrimeFactors(int number);
 vector<int> primeFactor(int number);
 // GCD in iterative approach
 int iterativeGCD(int a, int b);
+// inline function
+inline int getMax(int a, int b);
 
 // main function
 int main()
 {
-    // Example of Object-Like Macros
-    cout << PI << endl;
-    // Example of Functon-Like Macros
-    PRINT(69);
-    // Example of Multiline Macros
-    PRINT_RECTANGLE(10, 10);
-    // Example of Chain Macros
-    PAYMENT;
-    // Example of predefined Macros
-    cout << "File: " << __FILE__ << " " << "Date: " << __DATE__ << " " << "Time: " << __TIME__ << " " << "Line: " << __LINE__ << endl;
+    int a = 6, b = 7;
+    cout << getMax(a, b) << endl;
+    a++;
+    b--;
+    cout << getMax(a, b) << endl;
 }
 
 // Find Prime or not
@@ -2270,4 +2267,8 @@ int modularExponentiation(int x, int n, int m)
     }
     return res;
 }
-//
+// inline function
+inline int getMax(int a, int b)
+{
+    return (a > b) ? a : b;
+}
