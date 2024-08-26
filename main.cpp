@@ -510,12 +510,12 @@ bool uniqueNumberOfOccur(vector<int> &arr)
     {
         mp[arr[i]]++;
     }
-    
+
     for (auto val : mp)
     {
         st.insert(val.second);
     }
-    if(st.size() != mp.size())
+    if (st.size() != mp.size())
         return false;
     return true;
 }
@@ -595,6 +595,38 @@ vector<vector<int>> pairSum(int arr[], int size, int sum)
     }
     sort(ans.begin(), ans.end());
     return ans;
+
+    // Solution of the leetcode problem: Two Sum
+    // vector<int> twoSum(vector<int> &nums, int target)
+    // {
+    //     vector<int> temp = nums;
+    //     sort(temp.begin(), temp.end());
+    //     vector<int> ans;
+
+    //     int x, y;
+    //     for (int i = 0; i < temp.size(); i++)
+    //     {
+    //         y = target - temp[i];
+    //         if(binary_search(temp.begin() + i, temp.end(), y))
+    //         {
+    //             x = temp[i];
+    //             y = y;
+    //             break;
+    //         }
+    //     }
+    //     for(int i = 0; i < nums.size(); i++)
+    //     {
+    //         if(x = nums[i])
+    //         {
+    //             ans.push_back(i);
+    //         }
+    //         else if(y = temp[i])
+    //         {
+    //             ans.push_back(i);
+    //         }
+    //     }
+    //     return ans;
+    // }
 }
 // triplet sum
 void tripletSum(int arr[], int size, int sum)
