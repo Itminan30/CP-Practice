@@ -186,12 +186,13 @@ vector<int> primeFactor(int number);
 int iterativeGCD(int a, int b);
 // inline function
 inline int getMax(int a, int b);
+// power function with recursion
+long long int powerFunction(int n, int m);
 
 // main function
 int main()
 {
-    vector<int> arr = {4, 2, 2, 3, 4, 4};
-    cout << uniqueNumberOfOccur(arr) << endl;
+    cout << powerFunction(5, 5) << endl;
 }
 
 // Find Prime or not
@@ -2320,4 +2321,13 @@ int modularExponentiation(int x, int n, int m)
 inline int getMax(int a, int b)
 {
     return (a > b) ? a : b;
+}
+// power function with recursion
+long long int powerFunction(int n, int m)
+{
+    // base case
+    if (m <= 0)
+        return 1;
+    // recursive relation
+    return n * powerFunction(n, --m);
 }
