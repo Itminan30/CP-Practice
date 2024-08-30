@@ -190,13 +190,15 @@ inline int getMax(int a, int b);
 long long int powerFunction(int n, int m);
 // fibonacci series with recursion
 int fibonacciRecursion(int n, int big = 1, int small = 0);
+// climbing stairs - leetcode -> distinct ways to climb stairs
+int climbStairs(int n);
 
 // main function
 int main()
 {
     int n;
     cin >> n;
-    cout << fibonacciRecursion(n) << endl;
+    cout << climbStairs(n) << endl;
 }
 
 // Find Prime or not
@@ -2345,4 +2347,19 @@ int fibonacciRecursion(int n, int big, int small)
     }
     // recursion relation
     return fibonacciRecursion(--n, big + small, big);
+}
+// climbing stairs - leetcode -> distinct ways to climb stairs
+int climbStairs(int n)
+{
+    // answer will be okay if only the first two or the last two if statements are used
+    if (n < 0)
+        return 0;
+    if (n == 0)
+        return 1;
+    // if (n == 1)
+    //     return 1;
+    // if (n == 2)
+    //     return 2;
+
+    return climbStairs(n - 1) + climbStairs(n - 2);
 }
