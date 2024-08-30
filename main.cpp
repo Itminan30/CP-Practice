@@ -188,11 +188,15 @@ int iterativeGCD(int a, int b);
 inline int getMax(int a, int b);
 // power function with recursion
 long long int powerFunction(int n, int m);
+// fibonacci series with recursion
+int fibonacciRecursion(int n, int big = 1, int small = 0);
 
 // main function
 int main()
 {
-    cout << powerFunction(5, 5) << endl;
+    int n;
+    cin >> n;
+    cout << fibonacciRecursion(n) << endl;
 }
 
 // Find Prime or not
@@ -2330,4 +2334,15 @@ long long int powerFunction(int n, int m)
         return 1;
     // recursive relation
     return n * powerFunction(n, --m);
+}
+// fibonacci series with recursion
+int fibonacciRecursion(int n, int big, int small)
+{
+    // base case
+    if (n == 0)
+    {
+        return small;
+    }
+    // recursion relation
+    return fibonacciRecursion(--n, big + small, big);
 }
