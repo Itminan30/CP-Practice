@@ -192,13 +192,15 @@ long long int powerFunction(int n, int m);
 int fibonacciRecursion(int n, int big = 1, int small = 0);
 // climbing stairs - leetcode -> distinct ways to climb stairs
 int climbStairs(int n);
+// sum of array using recursion
+int sumArrayRecursion(int arr[], int size);
 
 // main function
 int main()
 {
-    int n;
-    cin >> n;
-    cout << climbStairs(n) << endl;
+    int arr[] = {198};
+    int sum = sumArrayRecursion(arr, 1);
+    cout << sum << endl;
 }
 
 // Find Prime or not
@@ -2362,4 +2364,13 @@ int climbStairs(int n)
     //     return 2;
 
     return climbStairs(n - 1) + climbStairs(n - 2);
+}
+// sum of array using recursion
+int sumArrayRecursion(int arr[], int size)
+{
+    if (size == 0)
+    {
+        return 0;
+    }
+    return arr[0] + sumArrayRecursion(arr + 1, --size);
 }
