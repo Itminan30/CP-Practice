@@ -194,13 +194,15 @@ int fibonacciRecursion(int n, int big = 1, int small = 0);
 int climbStairs(int n);
 // sum of array using recursion
 int sumArrayRecursion(int arr[], int size);
+// linear search using recursion
+int linerSearchRecursion(int arr[], int size, int key, int index = 0);
 
 // main function
 int main()
 {
-    int arr[] = {198};
-    int sum = sumArrayRecursion(arr, 1);
-    cout << sum << endl;
+    int arr[] = {198, 12, 33, 22, 65, 34, 98};
+    int index = linerSearchRecursion(arr, 7, 198);
+    cout << index << endl;
 }
 
 // Find Prime or not
@@ -2373,4 +2375,15 @@ int sumArrayRecursion(int arr[], int size)
         return 0;
     }
     return arr[0] + sumArrayRecursion(arr + 1, --size);
+}
+// linear search using recursion
+int linerSearchRecursion(int arr[], int size, int key, int index)
+{
+    if (size == 0)
+        return -1;
+
+    if (arr[0] == key)
+        return index;
+
+    return linerSearchRecursion(arr + 1, --size, key, ++index);
 }
